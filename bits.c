@@ -273,8 +273,15 @@ int conditional(int x, int y, int z) {
  *   Rating: 3
  */
 int isLessOrEqual(int x, int y) {
-  return 2;
-}
+  // = 1 if signs are same for x & y, else =  0
+  int s = !(((x >> 31) & 1) ^ (( y >> 31) & 1));
+  // = 1 if x - y = negatve, else = 0
+  int t = (x + ~y) >> 31 & 1;
+  // return 1 if x & y have the same sign && x - y = negative
+  // OR 
+  // x and y have different signs
+  return (s & t) | (( x >> 31) & 1) & !((y >> 31) & 1);
+  }
 //4
 /* 
  * logicalNeg - implement the ! operator, using all of 
